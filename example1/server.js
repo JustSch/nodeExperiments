@@ -66,10 +66,11 @@ app.post('/process_post', urlEncodedParser,function(req,res) {
     res.end(JSON.stringify(response));
 })
 
-app.get('/',function(req,res) {
-    console.log("Got a GET request for the homepage");
-    res.send('Hello, World!');
-})
+//since this is commented out will instead display index.html from public folder declared by use statement earlier
+//app.get('/',function(req,res) {
+ //   console.log("Got a GET request for the homepage");
+  //  res.send('Hello, World!');
+//})
 
 app.post('/',function(req, res) {
     console.log("Got a POST request for the homepage");
