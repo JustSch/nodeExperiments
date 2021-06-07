@@ -8,12 +8,16 @@ mongoose.connect('mongodb://localhost/test',{useNewUrlParser: true, useUnifiedTo
 .then(() => console.log('connected,,'))
 .catch((err)=> console.log(err));
 
-app.set('view engine','ejs');
+
 app.use(expressEjsLayout);
+app.set('view engine','ejs');
 
 app.use(express.urlencoded({extended : true}));
 
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
 
-app.listen(3000);
+app.use(express.static(__dirname + '/public'));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, console.log('Server running on port: %s', PORT));
