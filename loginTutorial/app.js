@@ -4,9 +4,11 @@ const app = express();
 const mongoose = require('mongoose');
 const expressEjsLayout = require('express-ejs-layouts');
 
-mongoose.connect('mongodb://localhost/test',{useNewUrlParser: true, useUnifiedTopology : true})
-.then(() => console.log('connected,,'))
-.catch((err)=> console.log(err));
+const db = require('./config/keys').MongoURI;
+
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MonogoDB connected...'))
+    .catch(err => console.log(err));
 
 
 app.use(expressEjsLayout);
