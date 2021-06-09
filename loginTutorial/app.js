@@ -3,6 +3,8 @@ const router = express.Router();
 const app = express();
 const mongoose = require('mongoose');
 const expressEjsLayout = require('express-ejs-layouts');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 const db = require('./config/keys').MongoURI;
 
@@ -15,6 +17,24 @@ app.use(expressEjsLayout);
 app.set('view engine','ejs');
 
 app.use(express.urlencoded({extended : true}));
+
+app.use(
+    session({
+      secret: 'secret',
+      resave: true,
+      saveUninitialized: true
+    })
+  );
+
+app.use(flash());
+
+// Global variables
+app.use(function(req, res, next) {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+  });
 
 app.use('/',require('./routes/index'));
 app.use('/users',require('./routes/users'));
