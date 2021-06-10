@@ -5,8 +5,11 @@ const mongoose = require('mongoose');
 const expressEjsLayout = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
 
 const db = require('./config/keys').MongoURI;
+
+require('./config/passport')(passport);
 
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MonogoDB connected...'))
@@ -25,6 +28,9 @@ app.use(
       saveUninitialized: true
     })
   );
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(flash());
 
