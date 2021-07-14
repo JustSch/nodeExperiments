@@ -10,6 +10,16 @@ app.get('/listUsers',function (req, res){
 })
 
 
+app.get('/:id', function (req, res) {
+   // First read existing users.
+   fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
+      var users = JSON.parse( data );
+      var user = users["user" + req.params.id] 
+      //console.log( user.name );
+      res.end(user.name);
+   });
+})
+
 app.get('/:id/app/:id', function (req, res) {
    // First read existing users.
    fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
